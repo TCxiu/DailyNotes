@@ -1,0 +1,32 @@
+curl https://bintray.com/sbt/rpm/rpm > bintray-sbt-rpm.repo
+mv bintray-sbt-rpm.repo /etc/yum.repos.d/
+yum install sbt
+
+
+-Dsbt.boot.directory=/root/sbt/boot
+-Dsbt.global.base=/root/sbt/
+-Dsbt.ivy.home=/root/sbt/ivy2
+-Dsbt.repository.config=/etc/sbt/repositories
+-Dsbt.repository.secure=false
+-Dhttp.proxyHost=localhost
+-Dhttp.proxyPort=8080 
+
+
+[repositories]  
+  local
+  Nexus osc : https://code.lds.org/nexus/content/groups/main-repo
+  Nexus osc thirdparty : https://code.lds.org/nexus/content/groups/plugin-repo/
+  typesafe: https://repo.typesafe.com/typesafe/ivy-releases/, [organization]/[module]/(scala_[scalaVersion]/)(sbt_[sbtVersion]/)[revision]/[type]s/[artifact](-[classifier]).[ext], bootOnly  
+  typesafe2: https://repo.typesafe.com/typesafe/releases/
+  sbt-plugin: https://repo.scala-sbt.org/scalasbt/sbt-plugin-releases/
+  sonatype: https://oss.sonatype.org/content/repositories/snapshots  
+  uk_maven: https://uk.maven.org/maven2/   
+  repo2: https://repo2.maven.org/maven2/
+  comp-maven:https://mvnrepository.com/artifact/
+  store_cn:https://maven.oschina.net/content/groups/public/
+  store_mir:https://mirrors.ibiblio.org/maven2/
+  store_0:https://maven.net.cn/content/groups/public/
+  store_1:https://repo.typesafe.com/typesafe/ivy-releases/
+  store_2:https://repo2.maven.org/maven2/
+  sbt-releases-repo: https://repo.typesafe.com/typesafe/ivy-releases/, [organization]/[module]/(scala_[scalaVersion]/)(sbt_[sbtVersion]/)[revision]/[type]s/[artifact](-[classifier]).[ext]
+  sbt-plugins-repo: https://repo.scala-sbt.org/scalasbt/sbt-plugin-releases/, [organization]/[module]/(scala_[scalaVersion]/)(sbt_[sbtVersion]/)[revision]/[type]s/[artifact](-[classifier]).[ext]
