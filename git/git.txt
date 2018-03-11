@@ -1,3 +1,9 @@
 git config --global user.name "Tc李"
 git config --global user.email "254870497@qq.com"
 ssh-keygen -t rsa -C "254870497@qq.com"
+
+
+#源码编译安装
+yum install -y  gcc gcc-c++ curl-devel expat-devel gettext-devel openssl-devel zlib-devel perl-ExtUtils-MakeMaker
+./configure --prefix=/usr/local/git
+make install
