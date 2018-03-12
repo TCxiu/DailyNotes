@@ -12,3 +12,5 @@ yum install -y  gcc gcc-c++ curl-devel expat-devel gettext-devel openssl-devel z
 
 ./configure --prefix=/usr/local/git --with-iconv=/usr/local/libiconv
 make && make install
+
+git --bare init --shared 项目名
