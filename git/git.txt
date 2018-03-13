@@ -13,4 +13,11 @@ yum install -y  gcc gcc-c++ curl-devel expat-devel gettext-devel openssl-devel z
 ./configure --prefix=/usr/local/git --with-iconv=/usr/local/libiconv
 make && make install
 
+创建git用户
+adduser git
+passwd git 
+切换到git用户
+生成ssh公私钥
+cat id_rsa.pub > authorized_keys
+注意 .ssh目录权限为700  authorized_keys权限为600
 git --bare init --shared 项目名
