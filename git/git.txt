@@ -16,6 +16,8 @@ make && make install
 创建git用户
 adduser git
 passwd git 
+chmod u+w /etc/sudoers
+chmod u-w /etc/sudoers
 切换到git用户
 生成ssh公私钥
 cat id_rsa.pub > authorized_keys
