@@ -1,0 +1,51 @@
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    keepalive_timeout  65;
+
+
+    include /etc/nginx/conf.d/*.conf;
+
+    #设定负载均衡的服务器列表
+    upstream myserver {
+        #weigth参数表示权值，权值越高被分配到的几率越大
+        #本机上的Squid开启3128端口
+        server 39.106.97.37:8080  weight=10;
+        server 39.106.97.176:8080  weight=10;
+    }
+
+	server {
+                listen 80;
+                server_name www.dyoud.com;
+		add_header Strict-Transport-Security max-age=15768000;
+   		 #永久重定向到 https 站点
+    		return 301 https://$server_name$request_uri;
+           }
+
+
+	server {
+        	listen 443;
+		ssl on;
+        	server_name 47.94.197.249;
+        	ssl_certificate 1_www.dyoud.com_bundle.crt;
+        	ssl_certificate_key 2_www.dyoud.com.key;
+        	ssl_session_timeout 20m;
+        	ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+        	ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;
+       		ssl_prefer_server_ciphers on;
+       
+	 	location / {
+            		proxy_pass  http://myserver;
+        	}
+	}
+}
